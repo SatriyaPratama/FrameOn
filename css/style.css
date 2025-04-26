@@ -253,6 +253,8 @@ section {
 .product-page {
   display: block;
   padding-top: 7rem;
+  padding-bottom: 2rem;
+
 }
 
 .product-page .glasses-gallery {
@@ -347,8 +349,16 @@ section {
   flex-direction: column;
   transition: all 0.3s;
   height: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInCard 0.6s ease forwards;
 }
-
+@keyframes fadeInCard {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .glasses-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
@@ -801,11 +811,6 @@ hr {
     gap: 1.5rem;
   }
   
-  section {
-    flex-direction: column;
-    padding: 6rem 1.5rem 2rem;
-  }
-  
   .circle {
     top: 25%;
     right: -40%;
@@ -816,6 +821,13 @@ hr {
   
   .content {
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 6rem;
+    padding-bottom: 2rem;
+  }
+  .imgBox {
+    display: none;
   }
   
   .content .textBox {
@@ -907,8 +919,4 @@ hr {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d6d27c2ab07b90cf1c14007308949830e1a4bb4c
