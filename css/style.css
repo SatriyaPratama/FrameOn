@@ -272,7 +272,7 @@ section {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   margin-bottom: 1.5rem;
   border-radius: var(--radius);
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
