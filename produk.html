@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FrameOn</title>
+  <script src='dist/JeelizVTOWidget.js'></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+  <link rel="stylesheet" href="css/JeelizVTOWidget.css">
+</head>
+
+<body>
+  <section>
+    <header>
+      <a href="index.html"><img src="images\logo.png" class="logo" alt="FrameOn Logo"></a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="produk.html">Produk</a></li>
+      </ul>
+    </header>
+
+    <!-- SEARCH + DROPDOWN -->
+    <div class="search-container">
+      <input type="text" id="searchBox" placeholder="Cari kacamata...">
+      <button id="searchButton">Cari</button>
+      <select id="itemsPerPage">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="25">25</option>
+      </select>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="container">
+      <div id="glassesGallery" class="glasses-gallery"></div>
+    </div>
+
+    <!-- PAGINATION -->
+    <div id="pagination" class="pagination"></div>
+
+    <!-- AR MODAL (sama seperti sebelumnya) -->
+    <div id="arModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeARPopup()">&times;</span>
+        <div class="content-ar">
+          <!-- … -->
+          <div id="JeelizVTOWidget">
+            <canvas id="JeelizVTOWidgetCanvas"></canvas>
+            <div class="JeelizVTOWidgetControls JeelizVTOWidgetControlsTop">
+              <button id="JeelizVTOWidgetAdjust">
+                <div class="buttonIcon"><i class="fas fa-arrows-alt"></i></div>Sesuaikan
+              </button>
+            </div>
+            <!-- CHANGE MODEL CONTAINER DIHAPUS -->
+            <div id="JeelizVTOWidgetAdjustNotice">
+              Geser kacamata untuk menyesuaikan.
+              <button class="JeelizVTOWidgetBottomButton" id="JeelizVTOWidgetAdjustExit">Quit</button>
+            </div>
+            <div id="JeelizVTOWidgetLoading">
+              <div class="JeelizVTOWidgetLoadingText">LOADING...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkoutModal" class="modal">
+      <div class="modal-content checkout-modal-content">
+        <span class="close" onclick="closeCheckout()">&times;</span>
+        <h2>Checkout</h2>
+        <div class="checkout-body">
+
+          <!-- Tambahkan ini -->
+          <img id="checkoutItemImage" src="images/placeholder.jpg" alt="Produk" class="checkout-image">
+
+          <p id="checkoutItemName" class="checkout-item">Nama Produk</p>
+          <p id="checkoutItemPrice" class="checkout-price">Harga</p>
+
+          <hr>
+
+          <div class="checkout-summary">
+            <div><span>Subtotal</span><span id="checkoutSubtotal">-</span></div>
+            <div><span>Tax (11%)</span><span id="checkoutTax">-</span></div>
+          </div>
+
+          <hr>
+
+          <div class="checkout-total">
+            <span>Total</span><span id="checkoutTotal">-</span>
+          </div>
+
+          <button class="checkout-button">Proceed to Payment →</button>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
+  <script>
+    // elemen penting
+    const searchBox = document.getElementById('searchBox'),
+      searchButton = document.getElementById('searchButton'),
+      itemsPerPage = document.getElementById('itemsPerPage'),
+      gallery = document.getElementById('glassesGallery'),
+      pagination = document.getElementById('pagination'),
+      modal = document.getElementById('arModal'),
+      loadingOverlay = document.getElementById('JeelizVTOWidgetLoading');
+
+    let models = [], filtered = [], currentPage = 1;
+    let arInitialized = false;  // flag untuk start() sekali saja
+
+    // 1) Load data dan render awal
+    fetch('models.json')
+      .then(res => res.json())
+      .then(data => {
+        models = data;
+        filtered = models;
+        itemsPerPage.addEventListener('change', () => { currentPage = 1; renderGallery(); });
+        searchButton.addEventListener('click', () => {
+          const kw = searchBox.value.trim().toLowerCase();
+          filtered = models.filter(m => m.label.toLowerCase().includes(kw));
+          currentPage = 1; renderGallery();
+        });
+        renderGallery();
+      })
+      .catch(err => console.error('Error loading models.json:', err));
+
+    function formatPrice(p) {
+      // Bulatkan ke integer
+      const value = Math.round(p);
+      // Sisipkan titik setiap 3 digit dari kanan
+      const withDots = value
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      return 'Rp' + withDots;
+    }
+
+    // 2) Render gallery dengan fallback gambar
+    function renderGallery() {
+      gallery.innerHTML = '';
+      pagination.innerHTML = '';
+      const per = +itemsPerPage.value;
+      const total = Math.max(1, Math.ceil(filtered.length / per));
+
+      if (!filtered.length) {
+        gallery.innerHTML = '<p class="no-results">Produk tidak ditemukan.</p>';
+        return;
+      }
+
+      currentPage = Math.min(Math.max(1, currentPage), total);
+      const start = (currentPage - 1) * per;
+
+      filtered.slice(start, start + per).forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'glasses-card';
+
+        const img = document.createElement('img');
+        img.src = `Model/${m.sku}.avif`;
+        img.alt = m.label;
+
+        // Multi-format error fallback
+        const extensions = ['jpg', 'png', 'webp'];
+        let extIndex = 0;
+
+        img.onerror = function () {
+          if (extIndex < extensions.length) {
+            this.src = `Model/${m.sku}.${extensions[extIndex++]}`;
+          } else {
+            this.onerror = null;
+            this.src = 'images/erorloading.jpg';
+          }
+        };
+
+
+        const info = document.createElement('div');
+        info.className = 'info';
+        info.innerHTML = `<h3>${m.label}</h3><p>${m.price ? formatPrice(m.price) : ''}</p>`;
+
+        // --- Tambahan button container ---
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'card-buttons';
+
+        const tryButton = document.createElement('button');
+        tryButton.className = 'try-btn';
+        tryButton.textContent = 'Coba';
+        tryButton.onclick = (e) => {
+          e.stopPropagation(); // Biar tidak ikut card onclick
+          showARPopup(m.sku);
+        };
+
+        const buyButton = document.createElement('button');
+        buyButton.className = 'buy-btn';
+        buyButton.textContent = 'Beli';
+        buyButton.onclick = (e) => {
+          e.stopPropagation();
+          showCheckout(
+            m.label,
+            m.price || 999.999,
+            `Model/${m.sku}.avif` // ← gambar produk
+          );
+        };
+
+
+        buttonContainer.appendChild(tryButton);
+        buttonContainer.appendChild(buyButton);
+
+        card.append(img, info, buttonContainer);
+        gallery.appendChild(card);
+      });
+
+
+      // Pagination
+      pagination.appendChild(createBtn('Prev', () => { currentPage--; renderGallery(); }, currentPage === 1));
+
+      for (let i = 1; i <= total; i++) {
+        if (i <= 2 || i > total - 2 || Math.abs(i - currentPage) <= 1) {
+          pagination.appendChild(createBtn(i, () => { currentPage = i; renderGallery(); }, i === currentPage));
+        } else if (i === 3 && currentPage > 4) {
+          pagination.appendChild(createEllipsis());
+        } else if (i === total - 2 && currentPage < total - 3) {
+          pagination.appendChild(createEllipsis());
+        }
+      }
+
+      pagination.appendChild(createBtn('Next', () => { currentPage++; renderGallery(); }, currentPage === total));
+    }
+
+    function createBtn(text, onClick, disabled) {
+      const btn = document.createElement('button');
+      btn.textContent = text;
+      btn.disabled = disabled;
+      btn.onclick = onClick;
+      btn.className = 'page-btn' + (text === currentPage ? ' active' : '') + (disabled ? ' disabled' : '');
+      return btn;
+    }
+    function createEllipsis() {
+      const span = document.createElement('span');
+      span.textContent = '...';
+      span.className = 'ellipsis';
+      return span;
+    }
+
+    // 3) Init AR (hanya sekali)
+    function initAR(sku) {
+      JEELIZVTOWIDGET.start({
+        sku: sku,
+        isShadow: get_isShadow(),
+        searchImageMask: 'images/logo.png',
+        searchImageColor: 0xa9a9a9,
+        callbackReady: () => {
+          // hide loading overlay setelah start pertama selesai
+          loadingOverlay.style.display = 'none';
+        },
+        onError: err => {
+          console.error('AR error:', err);
+          loadingOverlay.style.display = 'none';
+          alert('Gagal memuat AR: ' + err);
+        }
+      });
+    }
+    function showCheckout(name, price, imgSrc) {
+      const checkoutModal = document.getElementById('checkoutModal');
+      checkoutModal.classList.add('active');
+
+      document.getElementById('checkoutItemName').textContent = name;
+      document.getElementById('checkoutItemPrice').textContent = 'Qty: 1 × ' + formatPrice(price);
+
+      // --- Tangani error pada gambar checkout ---
+      const imgElem = document.getElementById('checkoutItemImage');
+
+      // Multi-format error fallback
+      const extensions = ['jpg', 'png', 'webp'];
+      let extIndex = 0;
+
+      imgElem.onerror = function () {
+        if (extIndex < extensions.length) {
+          const originalSrc = imgElem.src.split('.').slice(0, -1).join('.');
+          this.src = `${originalSrc}.${extensions[extIndex++]}`;
+        } else {
+          this.onerror = null;
+          this.src = 'images/erorloading.jpg';
+        }
+      };
+
+      imgElem.src = imgSrc;
+
+
+      const subtotal = price;
+      const tax = subtotal * 0.11; // pajak 11%
+      const total = subtotal + tax;
+
+      document.getElementById('checkoutSubtotal').textContent = formatPrice(subtotal);
+      document.getElementById('checkoutTax').textContent = formatPrice(tax);
+      document.getElementById('checkoutTotal').textContent = formatPrice(total);
+    }
+
+    function closeCheckout() {
+      document.getElementById('checkoutModal').classList.remove('active');
+    }
+
+
+    // klik backdrop untuk nutup checkout
+    window.addEventListener('click', function (e) {
+      if (e.target.id === 'checkoutModal') {
+        closeCheckout();
+      }
+    });
+
+
+    // 4) Tampilkan modal + start/load model
+    function showARPopup(sku) {
+      modal.classList.add('active');
+      loadingOverlay.style.display = 'flex';
+
+      if (!arInitialized) {
+        arInitialized = true;
+        initAR(sku);
+      } else {
+        JEELIZVTOWIDGET.load(sku);
+        // segera sembunyikan loading overlay saat model baru dipanggil
+        loadingOverlay.style.display = 'none';
+      }
+    }
+
+    // 5) Tutup modal (tanpa stop())
+    function closeARPopup() {
+      modal.classList.remove('active');
+      loadingOverlay.style.display = 'none';
+    }
+
+    // klik di area luar modal
+    window.onclick = e => {
+      if (e.target === modal) closeARPopup();
+    };
+
+    function get_isShadow() {
+      return !new URLSearchParams(window.location.search).get('isHideShadow');
+    }
+  </script>
+
+</body>
+
+</html>

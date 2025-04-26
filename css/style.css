@@ -1,0 +1,404 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+section
+{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+}
+header
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header .logo
+{
+    position: relative;
+    max-width: 120px;
+    margin-top: -30px;
+    margin-left: -30px;
+}
+header ul
+{
+    position: relative;
+    display: flex;
+    margin-top: -40px;
+}
+header ul li
+{
+    list-style: none;
+}
+header ul li a
+{
+    display: inline-block;
+    color: #333;
+    font-weight: 500;
+    margin-left: 40px;
+    text-decoration: none;
+}
+.content
+{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.content .textBox
+{
+ position: relative;
+ max-width: 600px;   
+}
+.content .textBox h2
+{
+    color: #333;
+    font-size: 4em;
+    line-height: 1.4em;
+    font-weight: 500;
+}
+.content .textBox h2 span
+{
+    color: #017143;
+    font-weight: 900;
+}
+.content .textBox p
+{
+    color: #333;
+}
+.content .textBox a
+{
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 20px;
+    background: #017143;
+    color: #fff;
+    border-radius: 40px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+.content .imgBox
+{
+ width: 600px;
+ display: flex;   
+ justify-content: flex-end;
+ padding-right: -10px;
+ margin-top: 50px;
+}
+.content .imgBox img
+{
+    margin-top: -30px;
+    max-width: 340px;
+}
+.sci
+{
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.sci li
+{
+    list-style: none;
+}
+.sci li a
+{
+    display: inline-block;
+    margin: 5px 0;
+    transform: scale(0.6);
+    filter: invert(1);
+}
+.circle
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #017143;
+    clip-path: circle(600px at right 800px);
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .glasses-gallery {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .glasses-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 250px;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .glasses-card:hover {
+    transform: scale(1.05);
+  }
+
+  .glasses-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .glasses-card .info {
+    padding: 10px;
+  }
+
+  .glasses-card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .glasses-card p {
+    color: #888;
+    font-size: 14px;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+  }
+/* Modal Styling */
+#arModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1000;
+    overflow: auto; /* Allow scrolling if content overflows */
+  }
+  
+  /* Modal Content Styling */
+  #modalContent {
+    background: #fff; /* White background for content */
+    height: 100%;
+    width: 100%; /* Adjust width as needed */
+    max-width: 800px; /* Limit maximum width */
+    margin: auto; /* Center the modal content */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+  .model-image { 
+    width: 100px; 
+    height: auto; 
+  }
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  #JeelizVTOWidget {
+    width: 100%; 
+    height: 600px; /* Set a fixed height or a responsive one */
+    max-width: calc(100vh - 70px);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+  }
+  
+  #JeelizVTOWidgetCanvas {
+    position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  }
+  
+  /* Controls container */
+  .JeelizVTOWidgetControls {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    padding: 0 10px;
+  }
+  
+  /* Top controls (e.g., Adjust button) */
+  .JeelizVTOWidgetControlsTop {
+    top: 10px;
+  }
+  
+  .JeelizVTOWidgetControlsTop > button {
+    width: auto;
+    min-width: 100px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+  }
+  
+  /* Bottom controls (e.g., Model selection) */
+  #JeelizVTOWidgetChangeModelContainer {
+    bottom: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  #JeelizVTOWidgetChangeModelContainer > button {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+  }
+  
+  /* Loading overlay */
+  #JeelizVTOWidgetLoading {
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .JeelizVTOWidgetLoadingText {
+    color: white;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  /* Adjust notice */
+  #JeelizVTOWidgetAdjustNotice {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px 0;
+    z-index: 3;
+    display: none;
+  }
+  
+  /* Adjust Exit button */
+  #JeelizVTOWidgetAdjustExit {
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+  
+  /* Hidden elements until triggered */
+  #JeelizVTOWidgetAdjust,
+  #JeelizVTOWidgetChangeModelContainer,
+  #buttonResizeCanvas {
+    display: none;
+  }
+  
+  /* Modal-specific adjustments */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 5;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    position: relative;
+    background-color: white;
+    width: 90%;
+    max-width: 800px;
+    height: 80%;
+    max-height: 600px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Close button styling */
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: black;
+    cursor: pointer;
+    z-index: 6;
+  }
+  

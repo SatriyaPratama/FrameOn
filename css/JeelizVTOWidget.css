@@ -1,0 +1,375 @@
+/* === RESET & GLOBAL === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Roboto Condensed", sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+/* === HEADER === */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0rem 2rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+header .logo {
+  height: 120px;
+}
+header ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+header a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+/* === SEARCH & DROPDOWN ABOVE === */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: #f5f5f5;
+}
+.search-container input {
+  flex: 1;
+  max-width: 300px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.search-container button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+.search-container button:hover {
+  background: #0056b3;
+}
+.search-container select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* === GALLERY === */
+.container {
+  max-width: 1200px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+.glasses-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+.glasses-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
+  height: 100%; /* penting supaya flex child tahu batas */
+}
+.glasses-card:hover {
+  transform: translateY(-4px);
+}
+.glasses-card img {
+  width: 100%;
+  display: block;
+}
+.card-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  margin-top: auto; /* PENTING: tombol turun ke bawah */
+}
+
+.card-buttons button {
+  flex: 1;
+  padding: 0.5rem 0;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.try-btn {
+  background-color: #28a745;
+  color: white;
+}
+.try-btn:hover {
+  background-color: #218838;
+}
+.buy-btn {
+  background-color: #007bff;
+  color: white;
+}
+.buy-btn:hover {
+  background-color: #0056b3;
+}
+
+.info {
+  padding: 0.75rem;
+  flex-grow: 1; /* supaya info mengisi ruang kosong */
+}
+.info h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+.info p {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* === NO RESULTS === */
+.no-results {
+  grid-column: 1/-1;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+  padding: 2rem 0;
+}
+
+/* === PAGINATION BAWAH === */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.page-btn {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.page-btn:hover:not(.disabled) {
+  background: #f0f0f0;
+}
+.page-btn.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+.page-btn.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.ellipsis {
+  padding: 0.5rem 0.75rem;
+  color: #999;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.active {
+  display: flex;
+}
+.modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  z-index: 1010; /* di atas backdrop */
+}
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  background: #fff;
+  color: #333;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 1030;
+  transition: background 0.2s;
+}
+.close:hover {
+  background: #f0f0f0;
+}
+/* === Checkout Modal Custom === */
+.checkout-modal-content {
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.checkout-body {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.checkout-image {
+  width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.checkout-item {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+.checkout-price {
+  font-size: 1rem;
+  color: #666;
+}
+.checkout-summary div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: #555;
+}
+.checkout-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #000;
+}
+.checkout-button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: #5a48fa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.checkout-button:hover {
+  background: #4530e0;
+}
+
+
+/* === AR WIDGET STYLES (scope: .content-ar) === */
+.content-ar {
+  position: relative;
+  width: 100%; /* full lebar modal-content */
+  height: 80vh; /* misal 80% tinggi viewport */
+  max-height: 600px; /* batasi maksimal */
+}
+
+#JeelizVTOWidget {
+  position: absolute; /* agar canvas bisa mengisi */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%; /* pastikan non-zero */
+  height: 100%;
+}
+
+#JeelizVTOWidgetCanvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.JeelizVTOWidgetControls {
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+.JeelizVTOWidgetControlsTop {
+  top: 16px;
+  height: 40px;
+}
+.JeelizVTOWidgetControlsTop > button {
+  width: 45%;
+}
+#JeelizVTOWidgetChangeModelContainer {
+  bottom: 16px;
+  height: 40px;
+}
+#JeelizVTOWidgetChangeModelContainer > button {
+  width: 20%;
+}
+#JeelizVTOWidgetLoading {
+  position: absolute; /* bukan fixed */
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1020; /* di atas canvas, tapi di bawah .modal-content */
+}
+.JeelizVTOWidgetLoadingText {
+  color: #fff;
+  font-size: 2rem;
+}
+#JeelizVTOWidgetAdjustNotice {
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  z-index: 3;
+  font-size: 16px;
+  bottom: 0;  
+  justify-content: center;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  display: none;
+}
+#JeelizVTOWidgetAdjustExit {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+}
+/* hide default widget controls */
+#JeelizVTOWidgetAdjust,
+#buttonResizeCanvas {
+  display: none;
+}

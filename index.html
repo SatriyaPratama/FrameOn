@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrameOn</title>
+    <link rel="stylesheet" href="css\style.css">
+</head>
+<body>
+    <section>
+        <div class="circle"></div>
+        <header>
+            <a href="index.html"><img src="images\logo.png" class="FrameOn logo"></a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="produk.html">Produk</a></li>
+            </ul>
+        </header>
+        <div class="content">
+            <div class="textBox">
+                <h2>Melihat Dunia Dengan Gaya</h2>
+                <p>Kami hadir untuk membantu Anda menemukan kacamata yang tak hanya memenuhi kebutuhan penglihatan, tetapi juga menambah kepercayaan diri Anda dengan desain yang trendi dan berkualitas</p>
+                <a href="produk.html">Cari Kacamata</a> 
+            </div>
+            <div class="imgBox">
+                <img src="images\gambar1tes.png" class="starbucks">
+            </div>   
+        </div>  
+        <ul class="sci">
+            <li><a href="#"><img src="images\facebook.png"></a></li>
+            <li><a href="#"><img src="images\twitter.png"></a></li>
+            <li><a href="#"><img src="images\instagram.png"></a></li>
+        </ul>
+    </section>
+
+    <script type="text/javascript">
+        function imgSlider(anything){
+            document.querySelector('.starbucks').src = anything;
+        }
+
+        function changeCircleColor(color){
+            const circle = document.querySelector('.circle');
+            circle.style.background = color;
+        }
+    </script>
+</body>
+</html>
