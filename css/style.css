@@ -1,11 +1,11 @@
 /* === GLOBAL STYLES & RESET === */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 :root {
@@ -64,7 +64,7 @@ header li a {
 }
 
 header li a::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -111,8 +111,12 @@ section {
 }
 
 @keyframes pulse {
-  0% { transform: translateY(-50%) scale(1); }
-  100% { transform: translateY(-50%) scale(1.05); }
+  0% {
+    transform: translateY(-50%) scale(1);
+  }
+  100% {
+    transform: translateY(-50%) scale(1.05);
+  }
 }
 
 .content {
@@ -188,8 +192,12 @@ section {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .content .imgBox img {
@@ -254,7 +262,6 @@ section {
   display: block;
   padding-top: 7rem;
   padding-bottom: 2rem;
-
 }
 
 .product-page .glasses-gallery {
@@ -500,7 +507,10 @@ section {
 .modal {
   display: none;
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
   justify-content: center;
@@ -516,8 +526,12 @@ section {
 }
 
 @keyframes fadeInModal {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-content {
@@ -578,9 +592,8 @@ section {
   flex-direction: column;
   gap: 0.4rem; /* tetap sesuai aslinya */
   max-height: calc(90vh - 150px); /* tambahkan ini */
-  overflow-y: auto;               /* tambahkan ini */
+  overflow-y: auto; /* tambahkan ini */
 }
-
 
 .checkout-image {
   width: 100%;
@@ -786,13 +799,13 @@ hr {
   .content .textBox h2 {
     font-size: 2.8rem;
   }
-  
+
   .circle {
     right: -50%;
     width: 700px;
     height: 700px;
   }
-  
+
   .sci {
     right: 1.5rem;
   }
@@ -802,23 +815,23 @@ hr {
   header {
     padding: 0.5rem 1.5rem;
   }
-  
+
   header .logo {
     height: 70px;
   }
-  
+
   header ul {
     gap: 1.5rem;
   }
-  
+
   .circle {
     top: 25%;
     right: -40%;
     width: 500px;
     height: 500px;
-    opacity: 0.85;
+    opacity: 0.3; /* lebih transparan supaya text kelihatan */
   }
-  
+
   .content {
     flex-direction: column;
     align-items: center;
@@ -826,24 +839,24 @@ hr {
     padding-top: 6rem;
     padding-bottom: 2rem;
   }
-  .imgBox {
-    display: none;
-  }
-  
+
   .content .textBox {
     text-align: center;
     padding: 0 1rem;
   }
-  
+
   .content .textBox h2 {
     font-size: 2.5rem;
   }
-  
-  .content .imgBox {
-    justify-content: center;
-    margin-top: 2rem;
+  .content .textBox p {
+    font-size: 1.5rem;
+    color: #000000; /* teks jadi putih */
   }
-  
+
+  .content .imgBox {
+    display: none;
+  }
+
   .sci {
     top: auto;
     bottom: 2rem;
@@ -853,22 +866,22 @@ hr {
     justify-content: center;
     gap: 2rem;
   }
-  
+
   .product-page .glasses-gallery {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
-  
+
   .search-container {
     flex-direction: column;
     padding: 1.2rem;
     margin-top: 6rem;
   }
-  
+
   .search-container input {
     width: 100%;
     max-width: none;
   }
-  
+
   .search-container button {
     width: 100%;
   }
@@ -878,45 +891,47 @@ hr {
   header {
     padding: 0.5rem 1rem;
   }
-  
+
   header .logo {
     height: 60px;
   }
-  
+
   header ul {
     gap: 1rem;
   }
-  
+
   header li a {
     font-size: 0.9rem;
   }
-  
+  .content .imgBox {
+    display: none;
+  }
+
   .content .textBox h2 {
     font-size: 2rem;
   }
-  
+
   .content .textBox p {
     font-size: 1rem;
   }
-  
+
   .content .textBox a {
     padding: 0.8rem 2rem;
     font-size: 1rem;
   }
-  
+
   .checkout-modal-content {
     padding: 1.5rem;
   }
-  
+
   .checkout-item {
     font-size: 1.1rem;
   }
-  
+
   .checkout-total {
     font-size: 1.2rem;
   }
   .product-page .glasses-gallery {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
-
 }
