@@ -566,8 +566,11 @@ section {
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.5rem; /* tetap sesuai aslinya */
+  max-height: calc(90vh - 150px); /* tambahkan ini */
+  overflow-y: auto;               /* tambahkan ini */
 }
+
 
 .checkout-image {
   width: 100%;
@@ -581,13 +584,13 @@ section {
 }
 
 .checkout-item {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--neutral-dark);
 }
 
 .checkout-price {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--neutral-medium);
   font-weight: 500;
 }
@@ -602,7 +605,7 @@ hr {
 .checkout-summary {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.3rem;
 }
 
 .checkout-summary div {
@@ -616,13 +619,13 @@ hr {
   display: flex;
   justify-content: space-between;
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   color: var(--neutral-dark);
-  margin-top: 0.5rem;
+  margin-top: 0.1rem;
 }
 
 .checkout-button {
-  margin-top: 2rem;
+  margin-top: 0rem;
   width: 100%;
   padding: 1rem;
   background: var(--primary);
