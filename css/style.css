@@ -257,7 +257,7 @@ section {
 
 .product-page .glasses-gallery {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 2rem;
 }
 
@@ -767,6 +767,9 @@ hr {
   .circle {
     right: -35%;
   }
+  .product-page .glasses-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
 
 @media (max-width: 992px) {
@@ -839,8 +842,8 @@ hr {
     gap: 2rem;
   }
   
-  .glasses-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  .product-page .glasses-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
   
   .search-container {
@@ -900,4 +903,8 @@ hr {
   .checkout-total {
     font-size: 1.2rem;
   }
+  .product-page .glasses-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
 }
