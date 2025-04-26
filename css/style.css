@@ -566,7 +566,7 @@ section {
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* tetap sesuai aslinya */
+  gap: 0.4rem; /* tetap sesuai aslinya */
   max-height: calc(90vh - 150px); /* tambahkan ini */
   overflow-y: auto;               /* tambahkan ini */
 }
