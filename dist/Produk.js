@@ -122,7 +122,7 @@ function renderGallery() {
     const img = document.createElement('img');
     img.src = `Model/${m.sku}.avif`;
     img.alt = m.label;
-    const extensions = ['jpg', 'png', 'webp'];
+    const extensions = ['jpg','jpeg', 'png', 'webp'];
     let extIndex = 0;
     img.onerror = function () {
       if (extIndex < extensions.length) {
